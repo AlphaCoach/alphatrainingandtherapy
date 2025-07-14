@@ -1,0 +1,59 @@
+.headshot {
+  display: block;
+  margin: 0 auto 15px auto;
+  width: 280px;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 3px solid #000;
+}
+#coach-image-container {
+  position: relative;
+  text-align: center;
+  padding: 10px;
+}
+.coach-title-banner {
+  margin-top: 12px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+}
+@media (max-width: 640px) {
+  .headshot {
+    width: 150px;
+  }
+
+  .coach-title-banner {
+    font-size: 1rem;
+  }
+}
+
+
+.faq-item.active .faq-answer {
+  display: block;
+}
+
+.toggle-icon {
+  font-weight: bold;
+  font-size: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.faq-item.active .toggle-icon {
+  transform: rotate(45deg); /* Turns + into an × */
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.faq-answer.open {
+  max-height: 500px; /* Adjust this depending on content */
+}
+
+.faq-question .icon.rotate {
+  transform: rotate(45deg);
+}
