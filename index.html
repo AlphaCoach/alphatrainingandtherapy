@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Alpha Training & Therapy</title>
-  </head>
-  <body style="text-align:center; font-family:sans-serif; padding-top:100px;">
-    <h1>Welcome to Alpha Training & Therapy</h1>
-    <p><a href="/4weekreset">Check out the 4-Week Reset Program</a></p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alpha Training & Therapy</title>
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind via CDN (fine for now) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'reset-red': '#ff3131',
+            'reset-black': '#121212',
+            'reset-gray': '#f5f5f5',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-reset-black text-white font-sans">
+
+  <!-- Header / Hero -->
+  <section class="min-h-screen flex flex-col items-center justify-center text-center px-4">
+    <h1 class="text-4xl md:text-6xl font-bold mb-4">Alpha Training & Therapy</h1>
+    <p class="text-xl md:text-2xl mb-8 text-gray-300 max-w-xl">
+      Premium coaching for busy professionals who want to train smarter, eat better, and thrive.
+    </p>
+    <a href="/4weekreset" class="bg-reset-red text-white px-6 py-3 rounded-full font-bold hover:bg-red-600 transition transform hover:scale-105">
+      Join the 4-Week Reset
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-gray-500 text-sm py-6">
+    &copy; 2025 Alpha Training & Therapy, LLC. All rights reserved.
+  </footer>
+
+</body>
 </html>
