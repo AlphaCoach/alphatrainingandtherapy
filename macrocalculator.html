@@ -315,7 +315,7 @@
               </div>
             </div>
 
-            <a href="#alpha-transformation-program" style="
+            <a href="https://app.hubfit.com/plan/69bb2584e86fae2d5fdf39e3" style="
               display:inline-flex;
               align-items:center;
               justify-content:center;
@@ -331,7 +331,7 @@
               text-transform:uppercase;
               box-shadow: 0 16px 28px rgba(193,18,31,0.24);
             ">
-              Apply for Alpha Transformation
+              Begin Your Alpha Transformation
             </a>
           </div>
         </div>
@@ -410,7 +410,7 @@
               <option value="none">None / General Nutrition</option>
               <option value="prediabetes">Prediabetes / Insulin Resistance</option>
               <option value="diabetes">Diabetes</option>
-              <option value="pcos">PCOS</option>
+              <option value="pcos/pmos">PCOS/PMOS</option>
               <option value="highcholesterol">High Cholesterol</option>
               <option value="hypertension">High Blood Pressure</option>
               <option value="other">Other / Not Listed</option>
@@ -560,9 +560,9 @@
       `;
     }
 
-    if (condition === 'pcos') {
+    if (condition === 'pcos/pmos') {
       return `
-        <strong>Health Consideration:</strong> Since PCOS was selected, this tool slightly tightens the carb target while keeping carbs in the plan. Prioritize protein, fiber-rich carbs, strength training, consistent meals, and blood-sugar-friendly food pairings.
+        <strong>Health Consideration:</strong> Since PCOS/PMOS was selected, this tool slightly tightens the carb target while keeping carbs in the plan. Prioritize protein, fiber-rich carbs, strength training, consistent meals, and blood-sugar-friendly food pairings.
         <br><br>
         <strong>Key Point:</strong> The goal is not to fear carbs. The goal is to use them strategically.
       `;
@@ -614,7 +614,7 @@
 
     let mealNote = `A simple ${mealCount}-meal structure: center each meal around roughly ${mealProtein}g protein, ${mealCarbs}g carbs, and ${mealFats}g fats.`;
 
-    if (condition === 'prediabetes' || condition === 'diabetes' || condition === 'pcos') {
+    if (condition === 'prediabetes' || condition === 'diabetes' || condition === 'pcos/pmos') {
       mealNote += ` Keep carbs evenly distributed and pair carb sources with protein, vegetables, or both. Fiber target: ${fiberTarget}g/day.`;
     }
 
@@ -664,40 +664,57 @@
       calories += 225;
     }
 
-    let proteinPerLb = 1.0;
-    let fatPerLb = 0.3;
-    let carbAdjustment = 0;
-    let fiberTarget = 25;
-    let mealCount = 4;
+   let proteinPerLb = 1.0;
+let fatPerLb = 0.3;
+let carbAdjustment = 0;
+let mealCount = 4;
 
-    if (goal === 'maintenance') {
-      proteinPerLb = 0.95;
-      fatPerLb = 0.32;
-    }
+// Goal-specific adjustments
+if (goal === 'maintenance') {
+  proteinPerLb = 0.95;
+  fatPerLb = 0.32;
+}
 
-    if (condition === 'prediabetes') {
-      carbAdjustment = -25;
-      fiberTarget = 30;
-    }
+if (goal === 'musclegain') {
+  proteinPerLb = 1.0;
+  fatPerLb = 0.3;
+}
 
-    if (condition === 'diabetes') {
-      carbAdjustment = -20;
-      fiberTarget = 30;
-    }
+if (goal === 'fatloss') {
+  proteinPerLb = 1.0;
+  fatPerLb = 0.3;
+}
 
-    if (condition === 'pcos') {
-      carbAdjustment = -15;
-      fiberTarget = 30;
-    }
+// Dynamic fiber target based on calories
+let fiberTarget = Math.round((calories / 1000) * 14);
 
-    if (condition === 'highcholesterol') {
-      fatPerLb = Math.min(fatPerLb, 0.28);
-      fiberTarget = 30;
-    }
+// Adaptive metabolic guardrails
+if (condition === 'prediabetes') {
+  carbAdjustment = -25;
+  fiberTarget += 5;
+}
 
-    if (condition === 'hypertension') {
-      fiberTarget = 28;
-    }
+if (condition === 'diabetes') {
+  carbAdjustment = -20;
+  fiberTarget += 5;
+}
+
+if (condition === 'pcos/pmos') {
+  carbAdjustment = -15;
+  fiberTarget += 5;
+}
+
+if (condition === 'highcholesterol') {
+  fatPerLb = Math.min(fatPerLb, 0.28);
+  fiberTarget += 5;
+}
+
+if (condition === 'hypertension') {
+  fiberTarget += 3;
+}
+
+// Prevent unrealistic fiber recommendations
+fiberTarget = Math.min(fiberTarget, 50);
 
     const protein = weight * proteinPerLb;
     const fats = weight * fatPerLb;
